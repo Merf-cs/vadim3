@@ -1,0 +1,90 @@
+/* Подключаем шрифт Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;  /* Центрирование текста */
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для заголовков */
+h1 {
+    font-weight: 500;
+    font-size: 2em;
+    color: #0088cc;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Стили для текста */
+p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Стили для кнопок */
+button, .button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0088cc;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 200px;
+}
+
+button:hover, .button-link:hover {
+    background-color: #006699;
+}
+
+/* Стили для списка команд */
+.team-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.team-list li {
+    padding: 12px;
+    margin: 8px 0;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+/* Стили для изображения */
+.banner-image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+}

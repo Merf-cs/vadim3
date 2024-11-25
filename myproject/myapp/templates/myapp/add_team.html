@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    
+
+    <title>Добавить любимую команду</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/test.css' %}">
+    <style>
+        body.light {
+            background-color: #ffffff; /* Светлая тема */
+            color: #000000;
+        }
+        body.dark {
+            background-color: #333333; /* Темная тема */
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <button id="toggleTheme">Сменить тему</button>
+    <button id="setLanguageEn">Английский</button>
+    <button id="setLanguageRu">Русский</button>
+    <p id="lastVisitedMessage"></p>
+    <h1 id="pageTitle">Добавить любимую команду</h1>
+    <img src="{% static 'images/sport_banner.jpg' %}" alt="Спортивный баннер" class="banner-image">
+    <p id="pageTitle">Поделитесь с нами вашей любимой командой! Добавьте ее в список и станьте частью нашего спортивного сообщества.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Добавить команду</button>
+    </form>
+    <a href="{% url 'view_teams' %}" class="button-link">Просмотреть мои команды</a>
+</div>
+
+<script>
+    // Получаем куки
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Сохраняем куки
+    function setCookie(name, value, options = {}) {
+        options = {
+            path: '/',
+            ...options,
+        };
+
+        if (options.expires instanceof Date) {
+            options.expires = options.expires.toUTCString();
+        }
+
+        let updatedCookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+
+        for (const optionKey in options) {
+            updatedCookie += '; ' + optionKey;
+            const optionValue = options[optionKey];
+            if (optionValue !== true) {
+                updatedCookie += '=' + optionValue;
+            }
+        }
+
+        document.cookie = updatedCookie;
+    }
+
+    // Применяем тему
+    function applyTheme(theme) {
+        document.body.classList.remove('light', 'dark'); // Удаляем предыдущие темы
+        document.body.classList.add(theme); // Добавляем новую тему
+        setCookie('theme', theme); // Сохраняем выбранную тему в куки
+    }
+
+    // Переключение темы
+    document.getElementById('toggleTheme').onclick = function() {
+        const currentTheme = getCookie('theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(currentTheme);
+    };
+
+    // Установка темы при загрузке страницы
+    const theme = getCookie('theme');
+    if (theme) {
+        applyTheme(theme);
+    } else {
+        applyTheme('light'); // Установка светлой темы по умолчанию
+    }
+
+
+    // Функция для применения языка
+    function applyLanguage(language) {
+        // Здесь можно добавить код для изменения текста на странице в зависимости от языка
+        // Например, можно использовать словарь переводов
+        setCookie('language', language);
+        alert(`Язык установлен на: ${language}`);
+    }
+
+    // Переключение языка
+    document.getElementById('setLanguageEn').onclick = function() {
+        applyLanguage('en');
+    };
+    document.getElementById('setLanguageRu').onclick = function() {
+        applyLanguage('ru');
+    };
+
+    // Установка языка при загрузке страницы
+    const language = getCookie('language');
+    if (language) {
+        applyLanguage(language);
+    }
+
+    // Отслеживание последней посещенной страницы
+    function trackLastVisitedPage() {
+        const currentPage = window.location.pathname; // Получаем текущий путь
+        setCookie('last_visited', currentPage);
+    }
+
+    // Вызываем функцию отслеживания при загрузке страницы
+    trackLastVisitedPage();
+
+    // Отображение последней посещенной страницы
+    const lastVisited = getCookie('last_visited');
+    const lastVisitedMessage = document.getElementById('lastVisitedMessage');
+    if (lastVisited) {
+        lastVisitedMessage.textContent = `Последняя посещенная страница: ${lastVisited}`;
+    }
+    function applyLanguage(language) {
+    // Изменение текста на странице в зависимости от языка
+    if (language === 'en') {
+        document.getElementById('pageTitle').textContent = 'Add Your Favorite Team';
+        // Изменяй другие элементы по мере необходимости
+    } else if (language === 'ru') {
+        document.getElementById('pageTitle').textContent = 'Добавить любимую команду';
+        // Изменяй другие элементы по мере необходимости
+    }
+    setCookie('language', language);
+    alert(`Язык установлен на: ${language}`);
+}
+
+</script>
+</body>
+</html>

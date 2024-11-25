@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои команды</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/styles.css' %}">
+    
+
+</head>
+<body>
+<div class="container">
+    <h1>Мои любимые команды</h1>
+    <p>Ниже представлен список ваших любимых команд. Наслаждайтесь спортом и оставайтесь на связи с вашим сообществом!</p>
+
+    <ul class="team-list">
+        {% for team in teams %}
+        <li>{{ team.name }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'add_team' %}" class="button-link">Добавить новую команду</a>
+</div>
+</body>
+</html>
